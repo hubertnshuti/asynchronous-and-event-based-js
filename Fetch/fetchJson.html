@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch from JSON</title>
+</head>
+<body>
+    <h1>Demo of fetching from JSON</h1>
+    <div id="userCountry"></div>
+    <div id="errorMsg"></div>
+    <script>
+        fetch('user.json')
+        .then(response => {
+            if(!response.ok){
+                throw new Error("file not found " + response.status)
+            }
+            return response.json()
+        })
+        .then(user => {
+            const userCountry = document.getElementById('userCountry');
+            userCountry.textContent = user.country;
+        })
+        .catch(error => {
+            alert("Failed to fetch the json" + error.message)
+        })
+    </script>
+</body>
+</html>

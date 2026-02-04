@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Products JSON</title>
+</head>
+<body>
+    <h1>Demo of fetching and rendering list</h1>
+    <script>
+        fetch('products.json')
+        .then(response => {
+        if(!response.ok){
+            throw new Error("Product not found" + response.status)
+        }
+        return response.json()
+        })
+        .then(products => {
+            products.forEach(product => {
+                let productDiv = document.createElement('div')
+                productDiv.textContent = `${product.name} -> ${product.price}`
+                document.body.append(productDiv)
+            })
+        })
+        .catch(error => {
+            let errorMsg = document.createElement('div').textContent = `Failed to fetch product ${error.message}`
+            document.body.append(errorMsg)
+        } )
+    </script>
+</body>
+</html>
